@@ -1,7 +1,7 @@
-package io.github.section9lab;
+package io.github.section9lab.lexer;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
-
+import static io.github.section9lab.Constants.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -23,13 +23,13 @@ public class Tokenizer {
             }
 
             if ("(".equals(token)) {
-                tokens.add(new ImmutablePair<>("paren", token));
+                tokens.add(new ImmutablePair<>(PAREN, token));
                 current++;
                 continue;
             }
 
             if (")".equals(token)) {
-                tokens.add(new ImmutablePair<>("paren", token));
+                tokens.add(new ImmutablePair<>(PAREN, token));
                 current++;
                 continue;
             }
@@ -41,7 +41,7 @@ public class Tokenizer {
                     value.append(token);
                     token = String.valueOf(code.charAt(++current));
                 }
-                tokens.add(new ImmutablePair<>("name", value.toString()));
+                tokens.add(new ImmutablePair<>(NAME, value.toString()));
             }
 
             String NUMBERS = "[0-9]";
@@ -51,7 +51,7 @@ public class Tokenizer {
                     value.append(token);
                     token = String.valueOf(code.charAt(++current));
                 }
-                tokens.add(new ImmutablePair<>("number", value.toString()));
+                tokens.add(new ImmutablePair<>(NUMBER, value.toString()));
             }
         }
         return tokens;

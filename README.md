@@ -31,7 +31,53 @@
 ```
 
 ## 第二步: Parser
+- 输入:
+```text
+[
+    (paren,(), 
+    (name,add), 
+    (number,2), 
+    (paren,(), 
+    (name,subtract), 
+    (number,4), 
+    (number,2), 
+    (paren,)), 
+    (paren,))
+]
+```
 
+- 输出:
+```
+ASTProgramNode{
+    type='Program',
+    body=[
+        ASTCallNode{
+            name='add',
+            type='CallExpression',
+            params=[
+                ASTNumberNode{
+                    type='NumberLiteral',
+                    value='2'
+                },
+                ASTCallNode{
+                    name='subtract',
+                    type='CallExpression',
+                    params=[
+                        ASTNumberNode{
+                            type='NumberLiteral',
+                            value='4'
+                        },
+                        ASTNumberNode{
+                            type='NumberLiteral',
+                            value='2'
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+```
 ## 第三步: traverser遍历AST
 
 ## 第四步: transformer转换AST
