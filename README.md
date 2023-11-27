@@ -78,12 +78,84 @@ ASTProgramNode{
     ]
 }
 ```
-## 第三步: traverser遍历AST
 
-## 第四步: transformer转换AST
+## 第三步: transformer转换AST
+- 输入:
+```text
+input:ASTProgramNode{
+    type='Program', 
+    body=[
+        ASTCallNode{
+            name='add', 
+            type='CallExpression', 
+            params=[
+                ASTNumberNode{
+                    type='NumberLiteral', 
+                    value='2'
+                }, 
+                ASTCallNode{
+                    name='subtract', 
+                    type='CallExpression', 
+                    params=[
+                        ASTNumberNode{
+                            type='NumberLiteral', 
+                            value='4'
+                        }, 
+                        ASTNumberNode{
+                            type='NumberLiteral', 
+                            value='2'
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
 
-## 第五步: ecodegen&compiler
-
+```
+ - 输出:
+```text
+output:ASTProgramNode{
+    type='Program', 
+    body=[
+        ASTExpr2Node{
+            expression=ASTExprNode{
+                name='null', 
+                callee=ASTCalleeNode{
+                    name='add'
+                }, 
+                arguments=[
+                    ASTNumberNode{
+                        type='NumberLiteral', 
+                        value='2'
+                    }, 
+                    ASTExprNode{
+                        name='null', 
+                        callee=ASTCalleeNode{
+                            name='subtract'
+                        },
+                        arguments=[
+                            ASTNumberNode{
+                                type='NumberLiteral', 
+                                value='4'
+                            }, 
+                            ASTNumberNode{
+                                type='NumberLiteral', 
+                                value='2'
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
+```
+## 第四步: genCode
+- 输出:
+```text
+add(2,subtract(4,2));
+```
 
 
 参考:

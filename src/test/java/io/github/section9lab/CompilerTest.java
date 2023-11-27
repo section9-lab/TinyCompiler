@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CompilerTest {
 
     @Test
-    void run() {
-        assertEquals(Compiler.run(2, 4), 6);
+    void run() throws Exception {
+        assertEquals(Compiler.run("(add 2 (subtract 4 2))"), "add(2,subtract(4,2));");
     }
 }
